@@ -1,15 +1,20 @@
 import { useEffect, useState } from "react";
 import "./App.css";
+import Image from "./Image";
+
+const sarcastic = (input) => {
+  return input
+    .split("")
+    .map((v, i) => (i % 2 ? v.toLowerCase() : v.toUpperCase()))
+    .join("");
+};
 
 function App() {
   const [input, setInput] = useState("the spongebob meme is outdated");
   const [output, setOutput] = useState("");
 
   useEffect(() => {
-    const text = input
-      .split("")
-      .map((v, i) => (i % 2 ? v.toLowerCase() : v.toUpperCase()))
-      .join("");
+    const text = sarcastic(input);
     setOutput(text);
   }, [input]);
 
@@ -20,15 +25,8 @@ function App() {
         value={input}
         onChange={(e) => setInput(e.target.value)}
       ></textarea>
-      <img
-        class="canvas"
-        src="https://cdn.mobilesyrup.com/wp-content/uploads/2019/01/mocking-spongebob.jpg"
-        alt="spongebob meme"
-      />
-      <textarea value={output}></textarea>
-      <p>
-        Edit <code>src/App.js</code> and save to reload.
-      </p>
+      <Image></Image>
+      <textarea value={output} readOnly={true}></textarea>
     </div>
   );
 }
